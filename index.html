@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>StormzQuiz — SAT & Chemistry Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="logo">
+      <svg class="bolt" viewBox="0 0 20 26" fill="currentColor"><path d="M11.5 0L1 15h7l-1.5 11L18 11h-7.5L11.5 0z"/></svg>
+      <span class="storm">Stormz</span>Quiz
+    </a>
+    <div class="nav-links">
+      <a href="subjects.html">Subjects</a>
+      <a href="papers.html">Past Papers</a>
+    </div>
+    <button class="settings-btn" id="settingsBtn" aria-label="Open settings">⚙️</button>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">⚡ Practice for your exams!</div>
+      <h1>Master the SAT.<br /><span class="accent">Ace your Score.</span></h1>
+      <p class="tagline">Prep for the SAT without the burnout. StormzQuiz gives you high-impact practice for Math, English, and Chemistry through 300 original questions and instant feedback in a completely distraction-free space.</p>
+      <div class="hero-actions">
+        <a href="subjects.html" class="btn btn-primary">Start Learning</a>
+        <a href="papers.html" class="btn btn-secondary">Past Papers</a>
+      </div>
+
+      <svg class="bolt-divider" viewBox="0 0 720 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="boltGradient" x1="0" y1="0" x2="720" y2="0" gradientUnits="userSpaceOnUse">
+            <stop class="bolt-gradient-start" offset="0" />
+            <stop class="bolt-gradient-middle" offset="0.6" />
+            <stop class="bolt-gradient-end" offset="1" />
+          </linearGradient>
+        </defs>
+        <path d="M0 30 L120 30 L150 8 L185 52 L220 20 L260 30 L400 30 L430 12 L465 48 L500 22 L540 30 L720 30" />
+      </svg>
+
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num">300</div><div class="label">Original questions</div></div>
+        <div class="hero-stat"><div class="num">3</div><div class="label">Subjects</div></div>
+        <div class="hero-stat"><div class="num">40</div><div class="label">Questions per run</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Made for focused practice</h2>
+        <p>No accounts AND No ads</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="icon">🎯</span>
+          <h3>Randomized runs</h3>
+          <p>Every quiz pulls 40 fresh questions from a total of prestored 100, so no two runs feel the same.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon">💡</span>
+          <h3>Instant explanations</h3>
+          <p>Every question comes with a clear, worked explanation the second you answer.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon">📊</span>
+          <h3>Clear results</h3>
+          <p>See your score, accuracy, and a breakdown of your performance the second you finish.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">StormzQuiz — Exists for practice 👍.</div>
+</footer>
+
+<div class="settings-overlay" id="settingsOverlay"></div>
+<aside class="settings-panel" id="settingsPanel" aria-label="Settings">
+  <h3>Settings <button class="settings-close" id="settingsClose" aria-label="Close settings">&times;</button></h3>
+  <div class="setting-row setting-row-column">
+    <span>Theme</span>
+    <div class="theme-swatches">
+      <button type="button" class="theme-swatch" data-theme-value="light" aria-pressed="false">
+        <span class="swatch-preview swatch-light"></span>
+        <span class="swatch-label">Light</span>
+      </button>
+      <button type="button" class="theme-swatch" data-theme-value="dark" aria-pressed="false">
+        <span class="swatch-preview swatch-dark"></span>
+        <span class="swatch-label">Dark<br>Blue &amp; Purple</span>
+      </button>
+      <button type="button" class="theme-swatch" data-theme-value="crimson" aria-pressed="false">
+        <span class="swatch-preview swatch-crimson"></span>
+        <span class="swatch-label">Red &amp; Black</span>
+      </button>
+      <button type="button" class="theme-swatch" data-theme-value="meadow" aria-pressed="false">
+        <span class="swatch-preview swatch-meadow"></span>
+        <span class="swatch-label">White &amp; Green</span>
+      </button>
+    </div>
+  </div>
+  <div class="setting-row">
+    <span>Reduce animations</span>
+    <div class="switch" id="animSwitch" role="switch" aria-label="Reduce animations" aria-checked="false" tabindex="0"></div>
+  </div>
+  <div class="setting-row">
+    <span>Sound effects</span>
+    <div class="switch" id="soundSwitch" role="switch" aria-label="Sound effects" aria-checked="true" tabindex="0"></div>
+  </div>
+</aside>
+
+<script src="app.js"></script>
+</body>
+</html>

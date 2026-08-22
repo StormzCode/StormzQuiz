@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Results — StormzQuiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="logo">
+      <svg class="bolt" viewBox="0 0 20 26" fill="currentColor"><path d="M11.5 0L1 15h7l-1.5 11L18 11h-7.5L11.5 0z"/></svg>
+      <span class="storm">Stormz</span>Quiz
+    </a>
+    <div class="nav-links">
+      <a href="subjects.html">Subjects</a>
+      <a href="papers.html">Past Papers</a>
+    </div>
+    <button class="settings-btn" id="settingsBtn" aria-label="Open settings">⚙️</button>
+  </div>
+</nav>
+
+<main>
+  <div class="results-wrap">
+    <div class="hero-eyebrow" id="subjectLabel">⚡ Results</div>
+    <h2>Your Score</h2>
+
+    <div class="results-ring">
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <defs>
+          <linearGradient id="resultsGradient" x1="0" y1="0" x2="220" y2="220" gradientUnits="userSpaceOnUse">
+            <stop class="bolt-gradient-start" offset="0" />
+            <stop class="bolt-gradient-middle" offset="1" />
+          </linearGradient>
+        </defs>
+        <circle class="track" cx="110" cy="110" r="94"></circle>
+        <circle class="fill" id="ringFill" cx="110" cy="110" r="94" stroke-dasharray="590" stroke-dashoffset="590"></circle>
+      </svg>
+      <div class="results-ring-label">
+        <div class="score" id="scoreText">0 / 40</div>
+        <div class="pct" id="pctText">0%</div>
+      </div>
+    </div>
+
+    <div class="results-stats">
+      <div class="results-stat correct">
+        <div class="val" id="correctVal">0</div>
+        <div class="label">Correct</div>
+      </div>
+      <div class="results-stat incorrect">
+        <div class="val" id="incorrectVal">0</div>
+        <div class="label">Incorrect</div>
+      </div>
+      <div class="results-stat">
+        <div class="val" id="pctVal">0%</div>
+        <div class="label">Accuracy</div>
+      </div>
+    </div>
+
+    <div class="results-actions">
+      <button class="btn btn-primary" id="retryBtn">Retry Quiz</button>
+      <a class="btn btn-secondary" href="subjects.html">Choose Subject</a>
+      <a class="btn btn-secondary" href="index.html">Home</a>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">StormzQuiz — Exists for practice 👍.</div>
+</footer>
+
+<div class="settings-overlay" id="settingsOverlay"></div>
+<aside class="settings-panel" id="settingsPanel" aria-label="Settings">
+  <h3>Settings <button class="settings-close" id="settingsClose" aria-label="Close settings">&times;</button></h3>
+  <div class="setting-row setting-row-column">
+    <span>Theme</span>
+    <div class="theme-swatches">
+      <button type="button" class="theme-swatch" data-theme-value="light" aria-pressed="false">
+        <span class="swatch-preview swatch-light"></span>
+        <span class="swatch-label">Light</span>
+      </button>
+      <button type="button" class="theme-swatch" data-theme-value="dark" aria-pressed="false">
+        <span class="swatch-preview swatch-dark"></span>
+        <span class="swatch-label">Dark<br>Blue &amp; Purple</span>
+      </button>
+      <button type="button" class="theme-swatch" data-theme-value="crimson" aria-pressed="false">
+        <span class="swatch-preview swatch-crimson"></span>
+        <span class="swatch-label">Red &amp; Black</span>
+      </button>
+      <button type="button" class="theme-swatch" data-theme-value="meadow" aria-pressed="false">
+        <span class="swatch-preview swatch-meadow"></span>
+        <span class="swatch-label">White &amp; Green</span>
+      </button>
+    </div>
+  </div>
+  <div class="setting-row">
+    <span>Reduce animations</span>
+    <div class="switch" id="animSwitch" role="switch" aria-label="Reduce animations" aria-checked="false" tabindex="0"></div>
+  </div>
+  <div class="setting-row">
+    <span>Sound effects</span>
+    <div class="switch" id="soundSwitch" role="switch" aria-label="Sound effects" aria-checked="true" tabindex="0"></div>
+  </div>
+</aside>
+
+<script src="app.js"></script>
+<script>
+  (function () {
+    const raw = sessionStorage.getItem("stormz_results");
+    const data = raw ? JSON.parse(raw) : { subject: "math", score: 0, total: 40 };
+    const { subject, score, total } = data;
+    const pct = total > 0 ? Math.round((score / total) * 100) : 0;
+    const incorrect = total - score;
+
+    const subjectNames = { math: "Math", english: "English", chemistry: "Chemistry" };
+    document.getElementById("subjectLabel").textContent = "⚡ " + (subjectNames[subject] || "Quiz") + " Results";
+    document.getElementById("scoreText").textContent = score + " / " + total;
+    document.getElementById("pctText").textContent = pct + "%";
+    document.getElementById("correctVal").textContent = score;
+    document.getElementById("incorrectVal").textContent = incorrect;
+    document.getElementById("pctVal").textContent = pct + "%";
+
+    const circumference = 2 * Math.PI * 94;
+    const ring = document.getElementById("ringFill");
+    ring.style.strokeDasharray = circumference;
+    ring.style.strokeDashoffset = circumference;
+    requestAnimationFrame(() => {
+      const offset = circumference - (pct / 100) * circumference;
+      ring.style.strokeDashoffset = offset;
+    });
+
+    document.getElementById("retryBtn").addEventListener("click", () => {
+      sessionStorage.removeItem("stormz_quiz_state");
+      window.location.href = "quiz.html?subject=" + encodeURIComponent(subject);
+    });
+  })();
+</script>
+</body>
+</html>

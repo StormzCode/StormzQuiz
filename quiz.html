@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Quiz — StormzQuiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="logo">
+      <svg class="bolt" viewBox="0 0 20 26" fill="currentColor"><path d="M11.5 0L1 15h7l-1.5 11L18 11h-7.5L11.5 0z"/></svg>
+      <span class="storm">Stormz</span>Quiz
+    </a>
+    <div class="nav-links">
+      <a href="subjects.html">Subjects</a>
+      <a href="papers.html">Past Papers</a>
+    </div>
+    <button class="settings-btn" id="settingsBtn" aria-label="Open settings">⚙️</button>
+  </div>
+</nav>
+
+<main>
+  <div class="quiz-header">
+    <div class="quiz-progress-top">
+      <span class="subject-tag" id="subjectTag">Subject</span>
+      <span class="qcount" id="qCount">Question 1 / 40</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill initial" id="progressFill"></div>
+    </div>
+  </div>
+
+  <div class="quiz-main">
+    <div class="question-card">
+      <div class="passage is-hidden" id="passageBox"></div>
+      <div class="question-text" id="questionText">Loading question…</div>
+      <div class="options" id="optionsList"></div>
+      <div class="explanation-box" id="explanationBox">
+        <div class="verdict" id="verdictText"></div>
+        <div id="explanationText"></div>
+      </div>
+      <div class="quiz-actions">
+        <button class="btn btn-primary" id="actionBtn" disabled>Check</button>
+      </div>
+    </div>
+    <div class="quiz-score-chip" id="scoreChip">Score: 0 / 0</div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">StormzQuiz — Exists for practice 👍.</div>
+</footer>
+
+<div class="settings-overlay" id="settingsOverlay"></div>
+<aside class="settings-panel" id="settingsPanel" aria-label="Settings">
+  <h3>Settings <button class="settings-close" id="settingsClose" aria-label="Close settings">&times;</button></h3>
+  <div class="setting-row setting-row-column">
+    <span>Theme</span>
+    <div class="theme-swatches">
+      <button type="button" class="theme-swatch" data-theme-value="light" aria-pressed="false">
+        <span class="swatch-preview swatch-light"></span>
+        <span class="swatch-label">Light</span>
+      </button>
+      <button type="button" class="theme-swatch" data-theme-value="dark" aria-pressed="false">
+        <span class="swatch-preview swatch-dark"></span>
+        <span class="swatch-label">Dark<br>Blue &amp; Purple</span>
+      </button>
+      <button type="button" class="theme-swatch" data-theme-value="crimson" aria-pressed="false">
+        <span class="swatch-preview swatch-crimson"></span>
+        <span class="swatch-label">Red &amp; Black</span>
+      </button>
+      <button type="button" class="theme-swatch" data-theme-value="meadow" aria-pressed="false">
+        <span class="swatch-preview swatch-meadow"></span>
+        <span class="swatch-label">White &amp; Green</span>
+      </button>
+    </div>
+  </div>
+  <div class="setting-row">
+    <span>Reduce animations</span>
+    <div class="switch" id="animSwitch" role="switch" aria-label="Reduce animations" aria-checked="false" tabindex="0"></div>
+  </div>
+  <div class="setting-row">
+    <span>Sound effects</span>
+    <div class="switch" id="soundSwitch" role="switch" aria-label="Sound effects" aria-checked="true" tabindex="0"></div>
+  </div>
+</aside>
+
+<script src="questions.js"></script>
+<script src="app.js"></script>
+<script src="quiz.js"></script>
+</body>
+</html>

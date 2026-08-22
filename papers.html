@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Past Papers — StormzQuiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="logo">
+      <svg class="bolt" viewBox="0 0 20 26" fill="currentColor"><path d="M11.5 0L1 15h7l-1.5 11L18 11h-7.5L11.5 0z"/></svg>
+      <span class="storm">Stormz</span>Quiz
+    </a>
+    <div class="nav-links">
+      <a href="subjects.html">Subjects</a>
+      <a href="papers.html">Past Papers</a>
+    </div>
+    <button class="settings-btn" id="settingsBtn" aria-label="Open settings">⚙️</button>
+  </div>
+</nav>
+
+<main>
+  <section class="section section-offset">
+    <div class="container">
+      <div class="section-head">
+        <h2>Official past papers</h2>
+        <p>Practice with authentic exams. We connect you straight to College Board's official free practice papers to help your daily prep.</p>
+      </div>
+
+      <div class="papers-grid">
+        <div class="paper-card">
+          <h3>Bluebook Practice Tests</h3>
+          <p>Full-length, official digital SAT practice tests in the real testing app.</p>
+          <a class="btn btn-secondary" href="https://bluebook.collegeboard.org" target="_blank" rel="noopener">Open Bluebook ↗</a>
+        </div>
+
+        <div class="paper-card">
+          <h3>SAT Practice on Khan Academy</h3>
+          <p>College Board's official partner for free, personalized SAT practice.</p>
+          <a class="btn btn-secondary" href="https://www.khanacademy.org/sat" target="_blank" rel="noopener">Open Khan Academy ↗</a>
+        </div>
+
+        <div class="paper-card">
+          <h3>SAT Suite Question Bank</h3>
+          <p>Browse official released questions by subject and skill.</p>
+          <a class="btn btn-secondary" href="https://satsuitequestionbank.collegeboard.org" target="_blank" rel="noopener">Open Question Bank ↗</a>
+        </div>
+
+        <div class="paper-card">
+          <h3>SAT Suite of Assessments</h3>
+          <p>College Board's home hub for SAT registration, dates, and prep resources.</p>
+          <a class="btn btn-secondary" href="https://satsuite.collegeboard.org/sat" target="_blank" rel="noopener">Open SAT Suite ↗</a>
+        </div>
+      </div>
+
+      <p class="papers-note">All links open official College Board resources.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">StormzQuiz — Exists for practice 👍.</div>
+</footer>
+
+<div class="settings-overlay" id="settingsOverlay"></div>
+<aside class="settings-panel" id="settingsPanel" aria-label="Settings">
+  <h3>Settings <button class="settings-close" id="settingsClose" aria-label="Close settings">&times;</button></h3>
+  <div class="setting-row setting-row-column">
+    <span>Theme</span>
+    <div class="theme-swatches">
+      <button type="button" class="theme-swatch" data-theme-value="light" aria-pressed="false">
+        <span class="swatch-preview swatch-light"></span>
+        <span class="swatch-label">Light</span>
+      </button>
+      <button type="button" class="theme-swatch" data-theme-value="dark" aria-pressed="false">
+        <span class="swatch-preview swatch-dark"></span>
+        <span class="swatch-label">Dark<br>Blue &amp; Purple</span>
+      </button>
+      <button type="button" class="theme-swatch" data-theme-value="crimson" aria-pressed="false">
+        <span class="swatch-preview swatch-crimson"></span>
+        <span class="swatch-label">Red &amp; Black</span>
+      </button>
+      <button type="button" class="theme-swatch" data-theme-value="meadow" aria-pressed="false">
+        <span class="swatch-preview swatch-meadow"></span>
+        <span class="swatch-label">White &amp; Green</span>
+      </button>
+    </div>
+  </div>
+  <div class="setting-row">
+    <span>Reduce animations</span>
+    <div class="switch" id="animSwitch" role="switch" aria-label="Reduce animations" aria-checked="false" tabindex="0"></div>
+  </div>
+  <div class="setting-row">
+    <span>Sound effects</span>
+    <div class="switch" id="soundSwitch" role="switch" aria-label="Sound effects" aria-checked="true" tabindex="0"></div>
+  </div>
+</aside>
+
+<script src="app.js"></script>
+</body>
+</html>
