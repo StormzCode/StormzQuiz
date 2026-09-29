@@ -1,11 +1,15 @@
 const LETTERS = ["A", "B", "C", "D"];
-const QUESTIONS_PER_RUN = 40;
+const QUESTIONS_PER_RUN = 25;
 
-function getSubjectFromUrl() {
+function getBoardAndSubjectFromUrl() {
   const params = new URLSearchParams(window.location.search);
+  const board = params.get("board");
   const subject = params.get("subject");
-  if (subject && window.QUESTIONS && window.QUESTIONS[subject]) return subject;
-  return "math";
+  if (board && subject && window.BOARDS && window.BOARDS[board] && window.BOARDS[board].subjects[subject]) {
+    return { board, subject };
+  }
+  // Fallback to SAT Math if the URL is missing or invalid
+  return { board: "sat", subject: "math" };
 }
 
 function shuffle(array) {
@@ -17,10 +21,12 @@ function shuffle(array) {
   return arr;
 }
 
-function buildRun(subject) {
-  const bank = window.QUESTIONS[subject];
-  const picked = shuffle(bank).slice(0, QUESTIONS_PER_RUN);
+function buildRun(board, subject) {
+  const bank = window.BOARDS[board].subjects[subject].questions;
+  const runSize = Math.min(QUESTIONS_PER_RUN, bank.length);
+  const picked = shuffle(bank).slice(0, runSize);
   return {
+    board,
     subject,
     questions: picked,
     current: 0,
@@ -29,19 +35,19 @@ function buildRun(subject) {
   };
 }
 
-function loadState(subject) {
+function loadState(board, subject) {
   const raw = sessionStorage.getItem("stormz_quiz_state");
   if (raw) {
     try {
       const state = JSON.parse(raw);
-      if (state.subject === subject && Array.isArray(state.questions) && state.questions.length === QUESTIONS_PER_RUN) {
+      if (state.board === board && state.subject === subject && Array.isArray(state.questions) && state.questions.length > 0) {
         return state;
       }
     } catch (e) {
       /* fall through to a fresh run */
     }
   }
-  const fresh = buildRun(subject);
+  const fresh = buildRun(board, subject);
   saveState(fresh);
   return fresh;
 }
@@ -51,10 +57,11 @@ function saveState(state) {
 }
 
 (function initQuiz() {
-  const subject = getSubjectFromUrl();
-  let state = loadState(subject);
+  const { board, subject } = getBoardAndSubjectFromUrl();
+  let state = loadState(board, subject);
 
-  const subjectNames = { math: "Math", english: "English", chemistry: "Chemistry" };
+  const boardMeta = window.BOARDS[board];
+  const subjectMeta = boardMeta.subjects[subject];
 
   const subjectTag = document.getElementById("subjectTag");
   const qCount = document.getElementById("qCount");
@@ -68,7 +75,7 @@ function saveState(state) {
   const actionBtn = document.getElementById("actionBtn");
   const scoreChip = document.getElementById("scoreChip");
 
-  subjectTag.textContent = subjectNames[subject] || subject;
+  subjectTag.textContent = boardMeta.name + " · " + subjectMeta.name;
 
   function currentQuestion() {
     return state.questions[state.current];
@@ -162,7 +169,7 @@ function saveState(state) {
     if (isLast) {
       sessionStorage.setItem(
         "stormz_results",
-        JSON.stringify({ subject: state.subject, score: state.score, total: state.questions.length })
+        JSON.stringify({ board: state.board, subject: state.subject, score: state.score, total: state.questions.length })
       );
       sessionStorage.removeItem("stormz_quiz_state");
       window.location.href = "results.html";

@@ -18,7 +18,8 @@
       <span class="storm">Stormz</span>Quiz
     </a>
     <div class="nav-links">
-      <a href="subjects.html">Subjects</a>
+      <a href="index.html">Home</a>
+      <a href="boards.html">Boards</a>
       <a href="papers.html">Past Papers</a>
     </div>
     <button class="settings-btn" id="settingsBtn" aria-label="Open settings">⚙️</button>
@@ -64,7 +65,7 @@
 
     <div class="results-actions">
       <button class="btn btn-primary" id="retryBtn">Retry Quiz</button>
-      <a class="btn btn-secondary" href="subjects.html">Choose Subject</a>
+      <a class="btn btn-secondary" href="boards.html">Choose Board</a>
       <a class="btn btn-secondary" href="index.html">Home</a>
     </div>
   </div>
@@ -84,17 +85,29 @@
         <span class="swatch-preview swatch-light"></span>
         <span class="swatch-label">Light</span>
       </button>
-      <button type="button" class="theme-swatch" data-theme-value="dark" aria-pressed="false">
-        <span class="swatch-preview swatch-dark"></span>
-        <span class="swatch-label">Dark<br>Blue &amp; Purple</span>
+      <button type="button" class="theme-swatch" data-theme-value="cosmic" aria-pressed="false">
+        <span class="swatch-preview swatch-cosmic"></span>
+        <span class="swatch-label">Cosmic</span>
       </button>
-      <button type="button" class="theme-swatch" data-theme-value="crimson" aria-pressed="false">
-        <span class="swatch-preview swatch-crimson"></span>
-        <span class="swatch-label">Red &amp; Black</span>
+      <button type="button" class="theme-swatch" data-theme-value="bloodmoon" aria-pressed="false">
+        <span class="swatch-preview swatch-bloodmoon"></span>
+        <span class="swatch-label">Bloodmoon</span>
       </button>
-      <button type="button" class="theme-swatch" data-theme-value="meadow" aria-pressed="false">
-        <span class="swatch-preview swatch-meadow"></span>
-        <span class="swatch-label">White &amp; Green</span>
+      <button type="button" class="theme-swatch" data-theme-value="nature" aria-pressed="false">
+        <span class="swatch-preview swatch-nature"></span>
+        <span class="swatch-label">Nature</span>
+      </button>
+      <button type="button" class="theme-swatch" data-theme-value="monochrome" aria-pressed="false">
+        <span class="swatch-preview swatch-monochrome"></span>
+        <span class="swatch-label">Monochrome</span>
+      </button>
+      <button type="button" class="theme-swatch" data-theme-value="cherry" aria-pressed="false">
+        <span class="swatch-preview swatch-cherry"></span>
+        <span class="swatch-label">Cherry</span>
+      </button>
+      <button type="button" class="theme-swatch" data-theme-value="ocean" aria-pressed="false">
+        <span class="swatch-preview swatch-ocean"></span>
+        <span class="swatch-label">Ocean</span>
       </button>
     </div>
   </div>
@@ -108,17 +121,20 @@
   </div>
 </aside>
 
+<script src="questions.js"></script>
 <script src="app.js"></script>
 <script>
   (function () {
     const raw = sessionStorage.getItem("stormz_results");
-    const data = raw ? JSON.parse(raw) : { subject: "math", score: 0, total: 40 };
-    const { subject, score, total } = data;
+    const data = raw ? JSON.parse(raw) : { board: "sat", subject: "math", score: 0, total: 25 };
+    const { board, subject, score, total } = data;
     const pct = total > 0 ? Math.round((score / total) * 100) : 0;
     const incorrect = total - score;
 
-    const subjectNames = { math: "Math", english: "English", chemistry: "Chemistry" };
-    document.getElementById("subjectLabel").textContent = "⚡ " + (subjectNames[subject] || "Quiz") + " Results";
+    const boardMeta = window.BOARDS && window.BOARDS[board];
+    const subjectMeta = boardMeta && boardMeta.subjects[subject];
+    const label = boardMeta && subjectMeta ? boardMeta.name + " " + subjectMeta.name : "Quiz";
+    document.getElementById("subjectLabel").textContent = "⚡ " + label + " Results";
     document.getElementById("scoreText").textContent = score + " / " + total;
     document.getElementById("pctText").textContent = pct + "%";
     document.getElementById("correctVal").textContent = score;
@@ -136,7 +152,7 @@
 
     document.getElementById("retryBtn").addEventListener("click", () => {
       sessionStorage.removeItem("stormz_quiz_state");
-      window.location.href = "quiz.html?subject=" + encodeURIComponent(subject);
+      window.location.href = "quiz.html?board=" + encodeURIComponent(board) + "&subject=" + encodeURIComponent(subject);
     });
   })();
 </script>
